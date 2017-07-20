@@ -2,12 +2,14 @@ const path = require('path');
 
 const SOURCE_DIRECTORY = path.resolve(__dirname, 'src');
 let saveTo = '';
+
 if(process.env.NODE_ENV=='dev'){
     saveTo = 'dist';
 } else{
     saveTo = 'extension';
 }
 const DISTRIBUTION_DIRECTORY = path.resolve(__dirname, saveTo);
+console.log(DISTRIBUTION_DIRECTORY);
 const PUBLIC_PATH = '/';
 
 module.exports = {

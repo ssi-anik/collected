@@ -1,0 +1,32 @@
+{
+    "name": "Collected",
+    "description": "A chrome extension to remove posts from your facebook news feed with user defined words.",
+    "manifest_version": 2,
+    "version": "1.0.0",
+    "permissions": [
+        "webRequest",
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.facebook.com/"
+            ],
+            "js": [
+                "./content.js"
+            ]
+        }
+    ],
+    "icons": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "browser_action": {
+        "default_icon": "icons/icon128.png",
+        "default_title": "Collected",
+        "default_popup": "index.html"
+    },
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

@@ -7,7 +7,8 @@
         "start": "npm run build",
         "build": "webpack -d && cp src/index.html dist/index.html && cp -a src/styles dist && webpack-dev-server --content-base src/  --inline --hot --progress --color",
         "build:dev": "node run build",
-        "build:chrome": "NODE_ENV=chrome && mkdir -p extension && cp -a manifest.json extension && cp -a src/index.html extension && cp -a icons extension && cp -a src/styles extension && webpack -p"
+        "build:chrome": "NODE_ENV=chrome && mkdir -p extension && cp -a manifest.json extension && cp -a src/index.html extension && cp -a src/content.js extension && cp -a icons extension && cp -a src/styles extension && webpack -p",
+        "build:chrome:dev": "NODE_ENV=chrome && mkdir -p extension && cp -a manifest.json extension && cp -a src/index.html extension && cp -a src/content.js extension && cp -a icons extension && cp -a src/styles extension && webpack-dev-server --content-base src/  --inline --hot --progress --color"
     },
     "repository": {
         "type": "git",
