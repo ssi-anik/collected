@@ -30,11 +30,11 @@ class Application extends Component {
         if ( "string" == typeof word ) {
             blockedWords = this.getFromLocalStorage();
             /*if ( word in blockedWords ) {
-                alert('Already stored');
-                return;
-            }*/
+             alert('Already stored');
+             return;
+             }*/
             blockedWords.push(word);
-        } else{
+        } else {
             blockedWords = word;
         }
 
@@ -64,23 +64,38 @@ class Application extends Component {
         }
     }
 
-    inputChangeHandler (event) {
-        let newValue = event.target.value;
+    updateBlockedWord (target) {
+        if ( target.charCode != 13 ) {
+            return;
+        }
+        console.log(target.id);
     }
 
     handleDelete (e) {
         let id = e.target.id;
-        let [index, word] = this.detachId(id);
+        let [index, word] = this.detachButtonId(id);
         let localStorage = this.getFromLocalStorage();
         localStorage.splice(index, 1);
         this.saveToLocalStorage(localStorage);
     }
 
-    detachId (id) {
+    inputIdBuilder (index, word) {
+        return JSON.stringify([
+            'input',
+            index,
+            word
+        ]);
+    }
+
+    detachInputId (id) {
         return JSON.parse(id);
     }
 
-    idBuilder (index, word) {
+    detachButtonId (id) {
+        return JSON.parse(id);
+    }
+
+    buttonIdBuilder (index, word) {
         return JSON.stringify([
             index,
             word
@@ -104,12 +119,12 @@ class Application extends Component {
                     </tr>
                     {
                         Object.keys(this.state.words).map((index) => {
-                            return <tr key = {"key-"+this.idBuilder(index, this.state.words[index])}>
+                            return <tr key = {"key-" + this.buttonIdBuilder(index, this.state.words[index])}>
                                 <td>
-                                    <input type = 'text' ref = {"input-" + index} onChange = {this.inputChangeHandler.bind(this)} defaultValue = {this.state.words[index]} className = 'form-control' />
+                                    <input type = 'text' ref = {this.inputIdBuilder(index, this.state.words[index])} onKeyPress = {this.updateBlockedWord.bind(this)} defaultValue = {this.state.words[index]} className = 'form-control' />
                                 </td>
                                 <td>
-                                    <button type = 'button' id = {this.idBuilder(index, this.state.words[index])} className = 'btn btn-warning btn-sm' onClick = {this.handleDelete.bind(this)}>
+                                    <button type = 'button' id = {this.buttonIdBuilder(index, this.state.words[index])} className = 'btn btn-warning btn-sm' onClick = {this.handleDelete.bind(this)}>
                                         Remove
                                     </button>
                                 </td>
